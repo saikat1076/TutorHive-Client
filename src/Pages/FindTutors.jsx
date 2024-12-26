@@ -4,12 +4,14 @@ import { MdStar, MdEmail } from "react-icons/md";
 import { MdOutlineVerified } from "react-icons/md";
 import { FaGraduationCap } from "react-icons/fa";
 import { IoLanguageSharp } from "react-icons/io5";
+import { FaSearch } from "react-icons/fa";
+
 
 const FindTutors = () => {
     const { category } = useParams();
     const [tutors, setTutors] = useState([]);
-    const [searchText, setSearchText] = useState(""); 
-    const [filteredTutors, setFilteredTutors] = useState([]); 
+    const [searchText, setSearchText] = useState("");
+    const [filteredTutors, setFilteredTutors] = useState([]);
 
     // Fetch tutors data
     useEffect(() => {
@@ -26,12 +28,12 @@ const FindTutors = () => {
             .catch((err) => console.error("Error fetching tutors:", err));
     }, [category]);
 
-   
+
     const handleSearchChange = (e) => {
-        const value = e.target.value.toLowerCase(); 
+        const value = e.target.value.toLowerCase();
         setSearchText(value);
 
-       
+
         const filtered = tutors.filter((tutor) =>
             (tutor.category || "").toLowerCase().includes(value)
         );
@@ -41,19 +43,25 @@ const FindTutors = () => {
 
     return (
         <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4 mx-auto text-center">
-                {category ? Tutors in `${category}` : "All Tutors"}
+            <h1 className="text-4xl font-bold mb-4 mx-auto text-center">
+                {/* {category ? "Tutor in" `${category}` : "All Tutors"} */}
+                All Tutors
             </h1>
 
             {/* Search Input */}
             <div className="mb-4 flex justify-center">
-                <input
-                    type="text"
-                    placeholder="Search by language..."
-                    value={searchText}
-                    onChange={handleSearchChange}
-                    className="input input-bordered w-full max-w-md"
-                />
+                <div className="relative w-full max-w-md">
+                    <input
+                        type="text"
+                        placeholder="Search by language..."
+                        value={searchText}
+                        onChange={handleSearchChange}
+                        className="input input-bordered w-full pl-10"
+                    />
+                    <span className="absolute inset-y-0 left-3 flex items-center text-gray-500">
+                        <FaSearch className="w-5 h-5" />
+                    </span>
+                </div>
             </div>
 
             {/* Tutors Grid */}
@@ -133,4 +141,4 @@ const FindTutors = () => {
     );
 };
 
-export default FindTutors;
+export default FindTutors;
