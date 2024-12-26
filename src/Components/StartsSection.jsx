@@ -20,7 +20,7 @@ const Stats = () => {
   useEffect(() => {
     // Animate counts over time
     const interval = 30;
-    const duration = 2000; // 2 seconds
+    const duration = 5000; // 2 seconds
     const steps = duration / interval;
     const increment = {
       tutors: Math.ceil(fakeData.tutors / steps),
