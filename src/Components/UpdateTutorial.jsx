@@ -159,7 +159,7 @@ const UpdateTutorial = () => {
 
             {/* Submit Button */}
             <div className="text-center">
-                <button className="btn btn-primary w-full">Submit</button>
+                <button className="btn btn-primary w-full">Update</button>
             </div>
         </form>
     );
