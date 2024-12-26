@@ -11,11 +11,13 @@ import TutorDetails from '../Components/TutorDetails';
 import MyTutorials from '../Pages/MyTutorials';
 import UpdateTutorial from '../Components/UpdateTutorial';
 import MyBookTutors from '../Pages/MyBookTutors';
+import ErrorPage from '../Pages/ErrorPage';
 
 const Router = createBrowserRouter([
   {
     path: "/",
     element: <Layouts></Layouts>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",

@@ -14,7 +14,7 @@ const UpdateTutorial = () => {
     useEffect(() => {
         const fetchTutor = async () => {
             try {
-                const { data } = await axios.get(`http://localhost:5000/tutors/${id}`);
+                const { data } = await axios.get(`https://tutor-hive-sever.vercel.app/tutors/${id}`);
                 setTutor(data);
             } catch (error) {
                 console.error("Error fetching tutor:", error);
@@ -46,7 +46,7 @@ const UpdateTutorial = () => {
         };
 
         try {
-            await axios.put(`http://localhost:5000/tutors/${id}`, updatedTutor);
+            await axios.put(`https://tutor-hive-sever.vercel.app/tutors/${id}`, updatedTutor);
             Swal.fire("Success", "Tutor updated successfully!", "success");
         } catch (error) {
             Swal.fire("Error", "Failed to update tutor.", "error");

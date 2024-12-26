@@ -40,7 +40,7 @@ const AddTutorials = () => {
 
 
 
-        fetch('http://localhost:5000/tutors', {
+        fetch('https://tutor-hive-sever.vercel.app/tutors', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

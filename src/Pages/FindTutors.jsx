@@ -16,8 +16,8 @@ const FindTutors = () => {
     // Fetch tutors data
     useEffect(() => {
         const url = category
-            ? `http://localhost:5000/tutors?category=${category}`
-            : `http://localhost:5000/tutors`;
+            ? `https://tutor-hive-sever.vercel.app/tutors?category=${category}`
+            : `https://tutor-hive-sever.vercel.app/tutors`;
 
         fetch(url)
             .then((res) => res.json())

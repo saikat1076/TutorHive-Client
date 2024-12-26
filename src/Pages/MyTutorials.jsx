@@ -9,7 +9,7 @@ const MyTutorials = () => {
 
     useEffect(() => {
         if (user && user.email) {
-            fetch(`http://localhost:5000/tutors/email/${user.email}`)
+            fetch(`https://tutor-hive-sever.vercel.app/tutors/email/${user.email}`)
                 .then(res => res.json())
                 .then(data => setTutorials(data))
                 .catch(err => console.error(err));
@@ -27,7 +27,7 @@ const MyTutorials = () => {
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/tutors/${id}`, {
+                fetch(`https://tutor-hive-sever.vercel.app/tutors/${id}`, {
                     method: "DELETE",
                 })
                     .then((res) => res.json())

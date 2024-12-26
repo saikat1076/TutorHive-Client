@@ -11,7 +11,7 @@ function MyBookedTutors() {
         if (user?.email) {
             const fetchBookedTutors = async () => {
                 try {
-                    const response = await fetch(`http://localhost:5000/book-tutors?email=${user.email}`);
+                    const response = await fetch(`https://tutor-hive-sever.vercel.app/book-tutors?email=${user.email}`);
                     const data = await response.json();
                     setBookedTutors(data);
                 } catch (error) {

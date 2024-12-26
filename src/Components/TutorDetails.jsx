@@ -10,7 +10,7 @@ function TutorDetails() {
     const [tutor, setTutor] = useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/tutors/${id}`)
+        fetch(`https://tutor-hive-sever.vercel.app/tutors/${id}`)
             .then((response) => response.json())
             .then((data) => setTutor(data))
             .catch((error) => console.error("Error fetching tutor data:", error));
@@ -28,7 +28,7 @@ function TutorDetails() {
         };
 
         try {
-            const response = await fetch("http://localhost:5000/book-tutors", {
+            const response = await fetch("https://tutor-hive-sever.vercel.app/book-tutors", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
