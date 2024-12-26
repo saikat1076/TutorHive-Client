@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { FaYoutube } from "react-icons/fa";
 import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import Loading from "./Loading";
 
 function TutorDetails() {
     const { user } = useContext(AuthContext);
@@ -47,7 +48,7 @@ function TutorDetails() {
         }
     };
 
-    if (!tutor) return <p>Loading...</p>;
+    if (!tutor) return <p><Loading></Loading></p>;
 
     return (
         <div className="p-6 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
@@ -77,7 +78,7 @@ function TutorDetails() {
                     <p className="text-lg text-gray-700 mt-4">{tutor.description}</p>
                     <div className="flex justify-between items-center mt-4">
                         <p className="text-xl font-semibold text-gray-800">Language: {tutor.category}</p>
-                        <p className="text-xl font-semibold text-gray-800">Price: ${tutor.price}</p>
+                        <p className="text-xl font-semibold text-gray-800">Price: BDT {tutor.price}</p>
                     </div>
                     <div className="flex items-center mt-4">
                         <span className="text-yellow-500 text-xl">Rating:</span>
