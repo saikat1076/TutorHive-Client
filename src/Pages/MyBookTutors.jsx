@@ -17,7 +17,7 @@ function MyBookedTutors() {
 
             try {
                 const response = await axios.get(
-                    `http://localhost:5000/book-tutors?email=${user.email}`,
+                    `https://tutor-hive-sever.vercel.app/book-tutors?email=${user.email}`,
                     { withCredentials: true }
                 );
                 setBookedTutors(response.data);
@@ -104,4 +104,4 @@ function MyBookedTutors() {
     );
 }
 
-export default MyBookedTutors;
+export default MyBookedTutors;
