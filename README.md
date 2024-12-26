@@ -1,8 +1,25 @@
-# React + Vite
+# TutorHive
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Purpose
+TutorHive is an online platform designed to connect students with qualified tutors. It offers an easy-to-use interface for searching, booking, and managing tutoring sessions.
 
-Currently, two official plugins are available:
+## Live URL
+[Your Live URL Here](https://tutorhive-e3caf.web.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Key Features
+- *User Authentication*: Secure login and registration for both students and tutors.
+- *Search Functionality*: Students can search for tutors by subject, expertise, and availability.
+- *Session Booking*: Students can easily book tutoring sessions based on tutors' schedules.
+- *Profile Management*: Tutors can create and manage their profiles, listing their qualifications and specialties.
+- *Rating & Reviews*: Students can leave feedback on tutoring sessions to help others make informed choices.
+
+## npm Packages Used
+- react: A JavaScript library for building user interfaces.
+- daisyui: A plugin for Tailwind CSS to help with UI components.
+- tailwindcss: A utility-first CSS framework for custom styling.
+- bcryptjs: A library to hash passwords securely.
+- jsonwebtoken: For user authentication using JSON Web Tokens.
+- react-router-dom: To handle routing in the React application.
+- mongodb: Native MongoDB driver for database operations.
+
+
