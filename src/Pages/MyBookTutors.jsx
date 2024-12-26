@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
+import Loading from "../Components/Loading";
 
 function MyBookedTutors() {
     const { user } = useContext(AuthContext);
@@ -29,7 +30,7 @@ function MyBookedTutors() {
 
     // Show a loading spinner while fetching data
     if (loading) {
-        return <p className="text-center mt-10 text-lg">Loading...</p>;
+        return <p className="text-center mt-10 text-lg"><Loading></Loading></p>;
     }
 
     // Handle case when no tutors are booked
