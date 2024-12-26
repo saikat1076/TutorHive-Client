@@ -25,6 +25,7 @@ function TutorDetails() {
             name: tutor.lecturer.userName,
             tutorEmail: tutor.email,
             email: user.email,
+            review: tutor.review,
         };
 
         try {

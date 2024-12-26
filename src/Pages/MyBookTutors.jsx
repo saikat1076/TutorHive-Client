@@ -58,7 +58,7 @@ function MyBookedTutors() {
                             <p className="text-gray-600 text-xl font-bold mt-1">Price: <span className="text-gray-800 font-medium">BDT {tutor.price}</span></p>
                             <p className="text-gray-600 text-lg font-mono mt-1">Tutor Email: <span className="text-gray-800">{tutor.tutorEmail}</span></p>
                             <div className="flex items-center justify-between mt-4">
-                                <span className="text-red-600 text-xl font-semibold">Reviews: <span className="text-gray-800 font-bold">{tutor.review || 0}</span></span>
+                                <span className="text-red-600 text-xl font-semibold">Reviews: <span className="text-gray-800 font-bold">{tutor.review}</span></span>
                                 <button
                                     className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300 transform hover:scale-105"
                                 >
