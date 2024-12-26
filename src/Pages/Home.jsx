@@ -4,6 +4,7 @@ import CategoryCard from '../Components/CategoryCard';
 import Banner from '../Components/Banner';
 import StartsSection from '../Components/StartsSection';
 import WhyChooseUs from '../Components/WhyChooseUs';
+import HowItWorks from '../Components/HowItWorks';
 
 
 const Home = () => {
@@ -19,6 +20,7 @@ const Home = () => {
             <div className='p-5'><CategoryCard></CategoryCard></div>
           </div>
           <WhyChooseUs></WhyChooseUs>
+          <HowItWorks></HowItWorks>
         </div>
     );
 };
