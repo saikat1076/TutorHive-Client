@@ -1,52 +1,84 @@
-// import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { FaChalkboardTeacher, FaStar, FaLanguage, FaUsers } from "react-icons/fa";
 
-// const StartsSection = () => {
-//   const [stats, setStats] = useState({
-//     tutors: 'Loading...',
-//     reviews: 'Loading...',
-//     languages: 'Loading...',
-//     users: 'Loading...',
-//   });
+const Stats = () => {
+  const [counts, setCounts] = useState({
+    tutors: 0,
+    reviews: 0,
+    languages: 0,
+    users: 0,
+  });
 
-//   useEffect(() => {
-//     // Fetch data from the API
-//     fetch('http://localhost:5000/tutors/lectures/counts')
-//       .then((response) => response.json())
-//       .then((data) => {
-//         setStats({
-//           tutors: data.tutors,
-//           reviews: data.reviews,
-//           languages: data.languages,
-//           users: data.users,
-//         });
-//       })
-//       .catch((error) => console.error('Error fetching data:', error));
-//   }, []);
+  const fakeData = {
+    tutors: 9,
+    reviews: 10,
+    languages: 9,
+    users: 2,
+  };
 
-//   return (
-//     <div className="grid grid-cols-1 md:grid-cols-4 gap-8 p-8">
-//       {/* Tutors Count */}
-//       <div className="stats stat bg-base-200 p-4 rounded-xl shadow-md">
-//         <div className="stat-title">Tutors</div>
-//         <div className="stat-value">{stats.tutors}</div>
-//       </div>
-//       {/* Reviews Count */}
-//       <div className="stats stat bg-base-200 p-4 rounded-xl shadow-md">
-//         <div className="stat-title">Reviews</div>
-//         <div className="stat-value">{stats.reviews}</div>
-//       </div>
-//       {/* Languages Count */}
-//       <div className="stats stat bg-base-200 p-4 rounded-xl shadow-md">
-//         <div className="stat-title">Languages</div>
-//         <div className="stat-value">{stats.languages}</div>
-//       </div>
-//       {/* Users Count */}
-//       <div className="stats stat bg-base-200 p-4 rounded-xl shadow-md">
-//         <div className="stat-title">Users</div>
-//         <div className="stat-value">{stats.users}</div>
-//       </div>
-//     </div>
-//   );
-// };
+  useEffect(() => {
+    // Animate counts over time
+    const interval = 30;
+    const duration = 2000; // 2 seconds
+    const steps = duration / interval;
+    const increment = {
+      tutors: Math.ceil(fakeData.tutors / steps),
+      reviews: Math.ceil(fakeData.reviews / steps),
+      languages: Math.ceil(fakeData.languages / steps),
+      users: Math.ceil(fakeData.users / steps),
+    };
 
-// export default StartsSection;
+    const animate = setInterval(() => {
+      setCounts((prevCounts) => {
+        const nextCounts = {
+          tutors: Math.min(prevCounts.tutors + increment.tutors, fakeData.tutors),
+          reviews: Math.min(prevCounts.reviews + increment.reviews, fakeData.reviews),
+          languages: Math.min(prevCounts.languages + increment.languages, fakeData.languages),
+          users: Math.min(prevCounts.users + increment.users, fakeData.users),
+        };
+
+        if (
+          nextCounts.tutors === fakeData.tutors &&
+          nextCounts.reviews === fakeData.reviews &&
+          nextCounts.languages === fakeData.languages &&
+          nextCounts.users === fakeData.users
+        ) {
+          clearInterval(animate);
+        }
+
+        return nextCounts;
+      });
+    }, interval);
+
+    return () => clearInterval(animate);
+  }, []);
+
+  const stats = [
+    { icon: <FaChalkboardTeacher />, label: "Total Tutors", value: counts.tutors },
+    { icon: <FaStar />, label: "5 Star Reviews", value: counts.reviews },
+    { icon: <FaLanguage />, label: "Languages", value: counts.languages },
+    { icon: <FaUsers />, label: "Total Users", value: counts.users },
+  ];
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-8 bg-[#E0F7FF] rounded-lg shadow-md">
+      {stats.map((stat, index) => (
+        <motion.div
+          key={index}
+          className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <div className="text-5xl text-blue-600 mb-4">{stat.icon}</div>
+          <h3 className="text-3xl font-semibold">
+            {stat.value}+
+          </h3>
+          <p className="text-gray-600 font-semibold text-xl">{stat.label}</p>
+        </motion.div>
+      ))}
+    </div>
+  );
+};
+
+export default Stats;

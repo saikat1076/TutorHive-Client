@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const MyTutorials = () => {
     const { user } = useContext(AuthContext);
@@ -9,10 +10,15 @@ const MyTutorials = () => {
 
     useEffect(() => {
         if (user && user.email) {
-            fetch(`https://tutor-hive-sever.vercel.app/tutors/email/${user.email}`)
-                .then(res => res.json())
-                .then(data => setTutorials(data))
-                .catch(err => console.error(err));
+            // fetch(`http://localhost:5000/tutors/email/${user.email}`)
+            //     .then(res => res.json())
+            //     .then(data => setTutorials(data))
+            //     .catch(err => console.error(err));
+
+            axios.get(`http://localhost:5000/tutors/email/${user.email}`, {
+                withCredentials: true
+            })
+            .then(res => setTutorials(res.data))
         }
     }, [user]);
 
