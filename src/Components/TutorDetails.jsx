@@ -58,7 +58,7 @@ function TutorDetails() {
                         alt={tutor.lecturer.userName}
                         className="w-full h-64 object-cover rounded-t-xl transform hover:scale-110 transition-all duration-300"
                     />
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-5xl cursor-pointer opacity-0 hover:opacity-100">
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-5xl cursor-pointer">
                         <FaYoutube className="text-red-600" />
                     </div>
                 </div>
@@ -71,7 +71,7 @@ function TutorDetails() {
                     />
                     <h1 className="text-4xl font-bold text-gray-800 hover:text-blue-500 transition-colors duration-300">{tutor.lecturer.userName}</h1>
                     </div>
-                    
+
                     
                     <p className="text-lg text-gray-700 mt-4">{tutor.description}</p>
                     <div className="flex justify-between items-center mt-4">

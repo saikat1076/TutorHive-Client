@@ -83,11 +83,22 @@ const Navbar = () => {
                         >
                             My Tutorials
                         </NavLink>
+                        <NavLink
+                            className={({ isActive }) =>
+                                `font-bold text-lg ${isActive
+                                    ? "rounded-md btn bg-blue-600   "
+                                    : "rounded-md btn btn-outline border-none"
+                                }`
+                            }
+                            to="/my-bookTutors"
+                        >
+                            My BookTutors
+                        </NavLink>
                     </ul>
                 </div>
                 <motion.div
-                initial={{ x: "100%", color: "#F5F5F5" }}  // Start with light blue
-                animate={{ x: 0, color: "#03346E" }}       // Move to position and change to gold
+                initial={{ x: "100%", color: "#F5F5F5" }}  
+                animate={{ x: 0, color: "#03346E" }}       
                 transition={{ duration: 3 }}
                 style={{
                     fontSize: "2rem",
@@ -147,6 +158,17 @@ const Navbar = () => {
                 to="/my-tutorials"
             >
                 My Tutorials
+            </NavLink>
+            <NavLink
+                className={({ isActive }) =>
+                    `font-bold text-sm ${isActive
+                        ? "rounded-md btn btn-sm bg-blue-600    text-white"
+                        : "rounded-md btn btn-sm btn-outline border-none "
+                    }`
+                }
+                to="/my-bookTutors"
+            >
+                My BookTutors
             </NavLink>
         </ul>
     </div>
