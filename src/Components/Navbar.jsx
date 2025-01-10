@@ -6,45 +6,6 @@ import profilePic from "../assets/profile.jpg";  // Ensure this path is correct
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
-    const [theme, setTheme] = useState("light");
-
-    // On component mount, get the saved theme from localStorage or default to light
-    useEffect(() => {
-        const savedTheme = localStorage.getItem("theme") || "light";
-        setTheme(savedTheme);
-        document.documentElement.classList.toggle("dark", savedTheme === "dark");
-
-        // Icon visibility check
-        const sunIcon = document.querySelector(".sun");
-        const moonIcon = document.querySelector(".moon");
-
-        if (savedTheme === "dark") {
-            sunIcon.classList.add("display-none");
-            moonIcon.classList.remove("display-none");
-        } else {
-            sunIcon.classList.remove("display-none");
-            moonIcon.classList.add("display-none");
-        }
-    }, []);
-
-    const toggleTheme = () => {
-        const newTheme = theme === "light" ? "dark" : "light";
-        setTheme(newTheme);
-        document.documentElement.classList.toggle("dark", newTheme === "dark");
-        localStorage.setItem("theme", newTheme); // Save the theme in localStorage
-
-        // Toggle icon visibility
-        const sunIcon = document.querySelector(".sun");
-        const moonIcon = document.querySelector(".moon");
-
-        if (newTheme === "dark") {
-            sunIcon.classList.add("display-none");
-            moonIcon.classList.remove("display-none");
-        } else {
-            sunIcon.classList.remove("display-none");
-            moonIcon.classList.add("display-none");
-        }
-    };
 
     return (
         <div className="navbar sticky top-0 z-50 backdrop-blur-lg lg:px-5 glass shadow-lg bg-[#E0F7FF] place-items-center">
@@ -61,11 +22,16 @@ const Navbar = () => {
                         </svg>
                     </button>
                     <ul tabIndex="0" className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                        <NavLink className={({ isActive }) => `font-bold text-lg ${isActive ? "rounded-md btn bg-blue-600" : "rounded-md btn btn-outline"}`} to="/">Home</NavLink>
-                        <NavLink className={({ isActive }) => `font-bold text-lg ${isActive ? "rounded-md btn bg-blue-600" : "rounded-md btn btn-outline"}`} to="/add-tutorials">Add Tutorials</NavLink>
-                        <NavLink className={({ isActive }) => `font-bold text-lg ${isActive ? "rounded-md btn bg-blue-600" : "rounded-md btn btn-outline"}`} to="/find-tutors">Find Tutors</NavLink>
-                        <NavLink className={({ isActive }) => `font-bold text-lg ${isActive ? "rounded-md btn bg-blue-600" : "rounded-md btn btn-outline"}`} to="/my-tutorials">My Tutorials</NavLink>
-                        <NavLink className={({ isActive }) => `font-bold text-lg ${isActive ? "rounded-md btn bg-blue-600" : "rounded-md btn btn-outline"}`} to="/my-bookTutors">My BookTutors</NavLink>
+                        <NavLink className={({ isActive }) => `font-bold text-lg ${isActive ? "rounded-md btn bg-blue-600" : "rounded-md btn btn-sm btn-outline"}`} to="/">Home</NavLink>
+                        <NavLink className={({ isActive }) => `font-bold text-lg ${isActive ? "rounded-md btn bg-blue-600" : "rounded-md btn btn-sm btn-outline"}`} to="/find-tutors">Find Tutors</NavLink>
+                        {user && user?.email ? (<>
+
+                            <NavLink className={({ isActive }) => `font-bold text-sm ${isActive ? "rounded-md btn btn-sm bg-blue-600 text-white" : "rounded-md btn btn-sm btn-outline"}`} to="/add-tutorials">Add Tutorials</NavLink>
+
+                            <NavLink className={({ isActive }) => `font-bold text-sm ${isActive ? "rounded-md btn btn-sm bg-blue-600 text-white" : "rounded-md btn btn-sm btn-outline"}`} to="/my-tutorials">My Tutorials</NavLink>
+                            <NavLink className={({ isActive }) => `font-bold text-sm ${isActive ? "rounded-md btn btn-sm bg-blue-600 text-white" : "rounded-md btn btn-sm btn-outline"}`} to="/my-bookTutors">My BookTutors</NavLink>
+
+                        </>) : (<NavLink className={({ isActive }) => `font-bold text-sm ${isActive ? "rounded-md btn btn-sm bg-blue-600 text-white" : "rounded-md btn btn-sm btn-outline"}`} to="/contact-us">Contact Us</NavLink>)}
                     </ul>
                 </div>
                 <motion.div initial={{ x: "100%", color: "#F5F5F5" }} animate={{ x: 0, color: "#03346E" }} transition={{ duration: 3 }} style={{ fontSize: "2rem", fontWeight: "bold" }}>
@@ -77,10 +43,16 @@ const Navbar = () => {
             <div className="navbar-center hidden lg:flex space-x-3">
                 <ul className="menu menu-horizontal px-1 space-x-3">
                     <NavLink className={({ isActive }) => `font-bold text-sm ${isActive ? "rounded-md btn btn-sm bg-blue-600 text-white" : "rounded-md btn btn-sm btn-outline"}`} to="/">Home</NavLink>
-                    <NavLink className={({ isActive }) => `font-bold text-sm ${isActive ? "rounded-md btn btn-sm bg-blue-600 text-white" : "rounded-md btn btn-sm btn-outline"}`} to="/add-tutorials">Add Tutorials</NavLink>
                     <NavLink className={({ isActive }) => `font-bold text-sm ${isActive ? "rounded-md btn btn-sm bg-blue-600 text-white" : "rounded-md btn btn-sm btn-outline"}`} to="/find-tutors">Find Tutors</NavLink>
-                    <NavLink className={({ isActive }) => `font-bold text-sm ${isActive ? "rounded-md btn btn-sm bg-blue-600 text-white" : "rounded-md btn btn-sm btn-outline"}`} to="/my-tutorials">My Tutorials</NavLink>
-                    <NavLink className={({ isActive }) => `font-bold text-sm ${isActive ? "rounded-md btn btn-sm bg-blue-600 text-white" : "rounded-md btn btn-sm btn-outline"}`} to="/my-bookTutors">My BookTutors</NavLink>
+
+                    {user && user?.email ? (<>
+
+                        <NavLink className={({ isActive }) => `font-bold text-sm ${isActive ? "rounded-md btn btn-sm bg-blue-600 text-white" : "rounded-md btn btn-sm btn-outline"}`} to="/add-tutorials">Add Tutorials</NavLink>
+
+                        <NavLink className={({ isActive }) => `font-bold text-sm ${isActive ? "rounded-md btn btn-sm bg-blue-600 text-white" : "rounded-md btn btn-sm btn-outline"}`} to="/my-tutorials">My Tutorials</NavLink>
+                        <NavLink className={({ isActive }) => `font-bold text-sm ${isActive ? "rounded-md btn btn-sm bg-blue-600 text-white" : "rounded-md btn btn-sm btn-outline"}`} to="/my-bookTutors">My BookTutors</NavLink>
+
+                    </>) : (<NavLink className={({ isActive }) => `font-bold text-sm ${isActive ? "rounded-md btn btn-sm bg-blue-600 text-white" : "rounded-md btn btn-sm btn-outline"}`} to="/contact-us">Contact Us</NavLink>)}
                 </ul>
             </div>
 
@@ -123,18 +95,9 @@ const Navbar = () => {
                         </Link>
                     </>
                 )}
-                {/* Theme Toggle Button */}
-                <button
-                    onClick={toggleTheme}
-                    className="btn btn-sm bg-blue-600 text-white text-sm ml-2"
-                >
-                    <span className="sun">☀</span>
-                    <span className="moon display-none">🌙</span>
-                    {theme === "light" ? "Dark" : "Light"}
-                </button>
             </div>
         </div>
     );
 };
 
-export default Navbar;
+export default Navbar;

@@ -79,11 +79,7 @@ const Register = () => {
   };
 
   return (
-    <div><Helmet>
-    <meta charSet="utf-8" />
-    <title>Career Compass | Register</title>
-    <link rel="canonical" href="http://mysite.com/example" />
-</Helmet>
+    <div>
 <div className='min-h-screen flex justify-center items-center'>
       <ToastContainer position="top-center" />
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">

@@ -1,13 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 
 
 const Banner = () => {
   return (
-    <div className="bg-gray-100 flex items-center justify-center pb-8">
+    <div className="bg-gray-100 flex items-center justify-center">
       <motion.div
-        className="flex flex-col md:flex-row items-center bg-white shadow-lg rounded-lg p-6 w-full"
+        className="flex flex-col md:flex-row items-center bg-white rounded-lg lg:p-6 w-full"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
@@ -23,8 +24,8 @@ const Banner = () => {
             that help your knowledge growing.
           </p>
           <div className="flex justify-center md:justify-start gap-4 mt-6">
-            <button className="btn btn-primary">Get Started</button>
-            <button className="btn btn-outline">Get free trial</button>
+            <Link to={"/find-tutors"} className="btn btn-primary">Get Started</Link>
+            <Link to={"/contact-us"} className="btn btn-outline">Get free trial</Link>
           </div>
         </div>
 

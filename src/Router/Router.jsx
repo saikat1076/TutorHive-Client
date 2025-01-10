@@ -13,6 +13,7 @@ import UpdateTutorial from '../Components/UpdateTutorial';
 import MyBookTutors from '../Pages/MyBookTutors';
 import ErrorPage from '../Pages/ErrorPage';
 import PrivateRoutes from './PrivateRoutes';
+import ContactUs from '../Components/ContactUs';
 
 const Router = createBrowserRouter([
   {
@@ -42,7 +43,7 @@ const Router = createBrowserRouter([
       },
       {
         path: "/tutors/:id",
-        element: <PrivateRoutes><TutorDetails></TutorDetails></PrivateRoutes>
+        element: <TutorDetails></TutorDetails>
       },
       
       {
@@ -52,6 +53,10 @@ const Router = createBrowserRouter([
       {
         path: "/my-bookTutors",
         element: <PrivateRoutes><MyBookTutors></MyBookTutors></PrivateRoutes>
+      },
+      {
+        path: "/contact-us",
+        element: <ContactUs></ContactUs>
       }
       
 

@@ -5,9 +5,9 @@ import Footer from "../Components/Footer";
 
 const Layouts = () => {
     return (
-        <div className='lg:mx-5 text-black'>
+        <div className='text-black'>
             <Navbar></Navbar>
-            <div className="min-h-[calc(100vh-550px)]">
+            <div className="min-h-[calc(100vh-550px)] bg-slate-300">
                 <Outlet></Outlet>
             </div>
             <Footer></Footer>

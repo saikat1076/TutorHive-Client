@@ -1,84 +1,144 @@
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { FaChalkboardTeacher, FaStar, FaLanguage, FaUsers } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Loading from "./Loading";
+import { motion } from "framer-motion";  // Import framer-motion for animations
+import AOS from "aos";  // Import AOS
+import "aos/dist/aos.css";  // Import AOS CSS for animations
+import { FaUsers, FaLanguage, FaStar, FaRegUser } from "react-icons/fa"; // Import icons
 
-const Stats = () => {
-  const [counts, setCounts] = useState({
-    tutors: 0,
-    reviews: 0,
-    languages: 0,
-    users: 0,
+function TutorsInfo() {
+  const [data, setData] = useState({
+    totalDocuments: 0,
+    distinctCategoryCount: 0,
+    fiveStarTutors: 0,  // 5-star tutors count
+    totalUsers: 0,      // total users count
   });
-
-  const fakeData = {
-    tutors: 9,
-    reviews: 10,
-    languages: 9,
-    users: 2,
-  };
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  
+  const [totalTutors, setTotalTutors] = useState(0);
+  const [languagesCount, setLanguagesCount] = useState(0);
+  const [fiveStarTutors, setFiveStarTutors] = useState(0);
+  const [totalUsers, setTotalUsers] = useState(0);
 
   useEffect(() => {
-    // Animate counts over time
-    const interval = 30;
-    const duration = 5000; // 2 seconds
-    const steps = duration / interval;
-    const increment = {
-      tutors: Math.ceil(fakeData.tutors / steps),
-      reviews: Math.ceil(fakeData.reviews / steps),
-      languages: Math.ceil(fakeData.languages / steps),
-      users: Math.ceil(fakeData.users / steps),
-    };
+    // Initialize AOS for scroll animations
+    AOS.init({ duration: 1000 });
 
-    const animate = setInterval(() => {
-      setCounts((prevCounts) => {
-        const nextCounts = {
-          tutors: Math.min(prevCounts.tutors + increment.tutors, fakeData.tutors),
-          reviews: Math.min(prevCounts.reviews + increment.reviews, fakeData.reviews),
-          languages: Math.min(prevCounts.languages + increment.languages, fakeData.languages),
-          users: Math.min(prevCounts.users + increment.users, fakeData.users),
-        };
-
-        if (
-          nextCounts.tutors === fakeData.tutors &&
-          nextCounts.reviews === fakeData.reviews &&
-          nextCounts.languages === fakeData.languages &&
-          nextCounts.users === fakeData.users
-        ) {
-          clearInterval(animate);
-        }
-
-        return nextCounts;
+    // Fetching data from the API
+    axios
+      .get("https://tutor-hive-sever.vercel.app/tutors", { params: { count: true } })
+      .then((response) => {
+        setData(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError("Error fetching data");
+        setLoading(false);
       });
-    }, interval);
-
-    return () => clearInterval(animate);
   }, []);
 
-  const stats = [
-    { icon: <FaChalkboardTeacher />, label: "Total Tutors", value: counts.tutors },
-    { icon: <FaStar />, label: "5 Star Reviews", value: counts.reviews },
-    { icon: <FaLanguage />, label: "Languages", value: counts.languages },
-    { icon: <FaUsers />, label: "Total Users", value: counts.users },
-  ];
+  useEffect(() => {
+    if (!loading) {
+      // Animate numbers to count from 0 to the fetched data
+      const countUp = (target, setter) => {
+        let count = 0;
+        const interval = setInterval(() => {
+          if (count < target) {
+            count += Math.ceil(target / 50);  // Increment by a fraction of the target
+            setter(count);
+          } else {
+            clearInterval(interval);
+            setter(target); // Ensure it ends at the target value
+          }
+        }, 30); // Update every 30ms
+      };
+
+      countUp(data.totalDocuments, setTotalTutors);
+      countUp(data.distinctCategoryCount, setLanguagesCount);
+      countUp(data.fiveStarTutors, setFiveStarTutors);
+      countUp(data.totalUsers, setTotalUsers);
+    }
+  }, [loading, data]);
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-8 bg-[#E0F7FF] rounded-lg shadow-md">
-      {stats.map((stat, index) => (
+    <div className="p-6 bg-[#f7f7f7c2]">
+      {/* Section Heading */}
+      <h2 className="text-center text-4xl pb-2 font-bold text-gray-800 my-5">
+        Tutors Information Overview
+      </h2>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Total Tutors Card */}
         <motion.div
-          key={index}
-          className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
+          data-aos="fade-up"  // AOS fade-up effect
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          className="relative p-6 bg-blue-300 text-black rounded-xl shadow-lg hover:scale-105 transition-transform"
         >
-          <div className="text-5xl text-blue-600 mb-4">{stat.icon}</div>
-          <h3 className="text-3xl font-semibold">
-            {stat.value}+
-          </h3>
-          <p className="text-gray-600 font-semibold text-xl">{stat.label}</p>
+          <div className="flex items-center justify-center mb-4">
+            <FaUsers size={40} className="mr-2 text-white" />
+            <h3 className="text-xl font-semibold">Total Tutors</h3>
+          </div>
+          <p className="text-3xl font-bold text-center">{totalTutors}+ </p>
         </motion.div>
-      ))}
+
+        {/* Languages Card */}
+        <motion.div
+          data-aos="fade-up"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          className="relative p-6 bg-blue-300 text-black rounded-xl shadow-lg hover:scale-105 transition-transform"
+        >
+          <div className="flex items-center justify-center mb-4">
+            <FaLanguage size={40} className="mr-2 text-white" />
+            <h3 className="text-xl font-semibold">Languages</h3>
+          </div>
+          <p className="text-3xl font-bold text-center">{languagesCount}+ </p>
+        </motion.div>
+
+        {/* 5-Star Tutor Reviews Card */}
+        <motion.div
+          data-aos="fade-up"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          className="relative p-6 bg-blue-300 text-black rounded-xl shadow-lg hover:scale-105 transition-transform"
+        >
+          <div className="flex items-center justify-center mb-4">
+            <FaStar size={40} className="mr-2 text-white" />
+            <h3 className="text-xl font-medium">5 star tutor reviews</h3>
+          </div>
+          <p className="text-3xl font-bold text-center">19+ </p>
+        </motion.div>
+
+        {/* Total Users Card */}
+        <motion.div
+          data-aos="fade-up"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          className="relative p-6 bg-blue-300 text-black rounded-xl shadow-lg hover:scale-105 transition-transform"
+        >
+          <div className="flex items-center justify-center mb-4">
+            <FaRegUser size={40} className="mr-2 text-white" />
+            <h3 className="text-xl font-semibold">Total Users</h3>
+          </div>
+          <p className="text-3xl font-bold text-center">20+ </p>
+        </motion.div>
+      </div>
     </div>
   );
-};
+}
 
-export default Stats;
+export default TutorsInfo;
